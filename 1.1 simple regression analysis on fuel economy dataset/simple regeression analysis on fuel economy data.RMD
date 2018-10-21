@@ -1,0 +1,85 @@
+---
+title: "Simple Regression Analysis on Fuel Economy dataset"
+author: "Ashish S Shanbhag"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+The datasets contain different estimates of fuel economy for passenger cars and trucks. For each vehicle, various
+characteristics are recorded such as the engine displacement or number of cylinders. Along with these values,
+laboratory measurements are made for the city and highway fuel economy (FE) of the car.
+
+This project explains as to how Fuel Efficiency is dependent on Engine Displacement.
+
+Step 1 : Load the given dataset.
+
+```{r}
+library(readr)
+FE2010 <- read_csv("FE2010.csv")
+```
+
+Step 2 : Perform linear regression.
+
+```{r}
+library(knitr)
+model<-lm(FE2010$`Fuel efficiency(Y)` ~ FE2010$`EngDisplacement(X)`)
+model
+```
+
+here are two co-efficients one is intercept and one more is regression co-efficient named engine displacement(x).
+
+Let us name intercept as b0 and regresion co-efficient as b1.
+
+The calculations are explained below
+
+![](D:/Acadgild study materials/ACADGILD_Projects/1.1 simple regression analysis on fuel economy/fuel/Screenshot (79).png)
+
+the above values are computed in the file FE2010.xlsx can be found in my GitHub.
+
+![](D:/Acadgild study materials/ACADGILD_Projects/1.1 simple regression analysis on fuel economy/fuel/Screenshot (80).png)
+
+![](D:/Acadgild study materials/ACADGILD_Projects/1.1 simple regression analysis on fuel economy/fuel/Screenshot (81).png)
+
+The detailed calculations are found in FE2010.xlsx in my GitHub
+
+
+Step 3 : Plot the linear model.
+
+```{r}
+library("ggplot2")
+ggplot() +
+  geom_point(aes(x=FE2010$`EngDisplacement(X)`,y=FE2010$`Fuel efficiency(Y)`),colour='red')+
+  geom_line(aes(x=FE2010$`EngDisplacement(X)`,y=predict(model,newdata = FE2010)),colour='blue')+
+  ggtitle('FUEL ECONOMY VS ENGINE DISPLACEMENT')+
+  xlab('Engine Displacement')+ylab('Fuel Economy')
+
+```
+
+Now we have to substitute b0 and b1 in regression equation
+
+y=a+bX
+
+y=b0+b1X
+
+Fuel Efficiency = 50.563 - 4.5209 * EngineDisplacement
+
+The above statement states that inorder to increase Fuel Efficiency by 1 unit,then Engine Displacement has to be decreased by 4.5 units.
+
+Step 4 : Now plot the summary of the model
+
+```{r}
+summary(model)
+```
+![](D:/Acadgild study materials/ACADGILD_Projects/1.1 simple regression analysis on fuel economy/fuel/Screenshot
+(84).png)
+
+SST stands for Sum Squared Total.
+SSR stands for Sum Squared Regressor.
+SSE stands for Sum Squared Error.
+
+![](D:/Acadgild study materials/ACADGILD_Projects/1.1 simple regression analysis on fuel economy/fuel/Screenshot (82).png)
+
+![](D:/Acadgild study materials/ACADGILD_Projects/1.1 simple regression analysis on fuel economy/fuel/Screenshot (85).png)
+
